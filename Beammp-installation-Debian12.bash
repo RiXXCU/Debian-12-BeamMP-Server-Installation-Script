@@ -29,26 +29,16 @@ echo "done"
 EOF
 
 chmod +x /root/Beammp/start-beammp
+cat << 'EOF'> /etc/rc.local
+#!/bin/sh -e
 
-cat << EOF > /etc/systemd/system/beammp.service
-[Unit]
-Description=BeamMP Server
-After=network.target
-
-[Service]
-ExecStart=/root/Beammp/start-beammp
-Restart=always
-User=root
-
-[Install]
-WantedBy=multi-user.target
+# input auto start script here
+echo date -R >> /root/Beammp/start-beammp
+exit 0
 EOF
-
-chmod 644 /etc/systemd/system/beammp.service
-systemctl daemon-reexec
-systemctl daemon-reload
-systemctl enable beammp.service
-
+chmod +x /etc/rc.local
+systemctl enable rc-local
+systemctl start rc-local.service
 cd /root/Beammp
 ./start-beammp
 
