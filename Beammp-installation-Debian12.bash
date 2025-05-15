@@ -33,7 +33,9 @@ cat << 'EOF'> /etc/rc.local
 #!/bin/sh -e
 
 # input auto start script here
-echo date -R >> /root/Beammp/start-beammp
+/root/Beammp/start-beammp
+echo date -R >> /var/log/sys-start.log
+
 exit 0
 EOF
 chmod +x /etc/rc.local
